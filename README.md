@@ -12,7 +12,7 @@ The "PhonePe Pulse Data Visualization and Exploration" project aims to develop a
 The PhonePe Pulse GitHub repository contains a large amount of data related to various metrics and statistics. The goal is to extract this data, process it, and create a user-friendly tool that visualizes the data in an insightful and interactive manner.
 
 ## Solution
-1. Data Extraction: Clone the PhonePe Pulse GitHub repository using scripting to fetch the data.
+** Data Extraction: Clone the PhonePe Pulse GitHub repository using scripting to fetch the data.
 2. Data Transformation: Use Python and Pandas to clean and preprocess the data, handling missing values and formatting it for analysis.
 3. Database Insertion: Insert the transformed data into a MySQL database using mysql-connector-python for efficient storage and retrieval.
 4. Dashboard Creation: Develop an interactive dashboard using Streamlit and Plotly. The dashboard will feature various dynamic visualizations, including geo maps, and provide multiple dropdown options for user interaction.
