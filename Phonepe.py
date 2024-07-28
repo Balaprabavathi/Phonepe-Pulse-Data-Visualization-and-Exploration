@@ -8,6 +8,7 @@ import json
 from PIL import Image
 
 
+
 #DataFrame creation (totally 9tables)
 #SQL Connection
 mydb = psycopg2.connect(host = "localhost",
@@ -697,70 +698,57 @@ def top_chart_registered_users(table_name):
     st.plotly_chart(fig_amount_3)
 
 
-
 #Streamlit Part
-#1st set the page layout
 
 st.set_page_config(layout="wide")
 st.title("PHONEPE DATA VISUALIZATION AND EXPLORATION")
 
-with st.sidebar:
-    select = option_menu("Main Menu",["HOME", "DATA EXPLORATION", "TOP CHARTS"])
+SELECT = option_menu(
+    menu_title = None,
+    options = ["ABOUT","HOME", "DATA EXPLORATION", "TOP CHARTS"],
+    icons =["bar-chart","house","toggles","at"],
+    default_index=2,
+    orientation="horizontal",
+    styles={"container": {"padding": "0!important", "background-color": "black","size":"cover", "width": "100%"},
+        "icon": {"color": "red", "font-size": "20px"},
+        "nav-link": {"font-size": "20px", "text-align": "center", "margin": "-2px", "--hover-color": "#6F36AD"},
+        "nav-link-selected": {"background-color": "#6F36AD"}})
 
-#Home Menu
-if select == "HOME":
+# ABOUT TAB
+
+
+if SELECT == "ABOUT":
+    col1, col2, = st.columns(2)
     
-    col1,col2= st.columns(2)
-
     with col1:
-        st.header("PHONEPE")
-        st.subheader("INDIA'S BEST TRANSACTION APP")
-        st.markdown("PhonePe  is an Indian digital payments and financial technology company")
-        st.write("****FEATURES****")
-        st.write("****Credit & Debit card linking****")
-        st.write("****Bank Balance check****")
-        st.write("****Money Storage****")
-        st.write("****PIN Authorization****")
-        st.download_button("DOWNLOAD THE APP NOW", "https://www.phonepe.com/app-download/")
+         st.video(r"C:\Users\user\Desktop\Project env\pulse-video.mp4")
+
+        
     with col2:
-        st.image(Image.open(r"C:\Users\user\Desktop\Project env\download.jpg"),width= 500)
+       col2.image(Image.open(r"C:\Users\user\Desktop\Project env\PhonePe_Logo.jpg"), width=500)
+       st.write("---")
+       st.subheader(
+            "PhonePe Pulse is a data analytics platform launched by PhonePe, showcasing insights and trends in digital transactions across India. It provides granular data on various metrics like transaction volumes, values, and regional trends, updated regularly. The platform aims to promote transparency and understanding of digital payment behaviors. It is a valuable resource for businesses, researchers, and policymakers to analyze and leverage digital payment data.")
+       st.markdown("[DOWNLOAD APP](https://www.phonepe.com/app-download/)")
 
-    col3,col4= st.columns(2)
-    
-    with col3:
-        st.image(Image.open(r"C:\Users\user\Desktop\Project env\download (1).jpg"),width=500)
-
-    with col4:
-        st.write("****Easy Transactions****")
-        st.write("****One App For All Your Payments****")
-        st.write("****Your Bank Account Is All You Need****")
-        st.write("****Multiple Payment Modes****")
-        st.write("****PhonePe Merchants****")
-        st.write("****Multiple Ways To Pay****")
-        st.write("****1.Direct Transfer & More****")
-        st.write("****2.QR Code****")
-        st.write("****Earn Great Rewards****")
-
-    col5,col6= st.columns(2)
-
-    with col5:
-        st.markdown(" ")
-        st.markdown(" ")
-        st.markdown(" ")
-        st.markdown(" ")
-        st.markdown(" ")
-        st.markdown(" ")
-        st.markdown(" ")
-        st.write("****No Wallet Top-Up Required****")
-        st.write("****Pay Directly From Any Bank To Any Bank A/C****")
-        st.write("****Instantly & Free****")
-
-    with col6:
-        st.image(Image.open(r"C:\Users\user\Desktop\Project env\images.jpg"),width= 500)
-
+if SELECT == "HOME":
+    col1,col2 = st.columns(2)
+    with col1:
+        st.image(Image.open(r"C:\Users\user\Desktop\Project env\maxresdefault.jpg"), width=600)
+    with col2:
+        st.title(':violet[PHONEPE PULSE DATA VISUALISATION]')
+        st.subheader(':violet[Phonepe Pulse]:')
+        st.write('PhonePe Pulse is a feature offered by the Indian digital payments platform called PhonePe.PhonePe Pulse provides users with insights and trends related to their digital transactions and usage patterns on the PhonePe app.')
+        st.subheader(':violet[Phonepe Pulse Data Visualisation]:')
+        st.write('PhonePe Pulse data visualization offers interactive charts and maps to present digital transaction trends across India. It allows users to explore transaction volumes, values, and regional patterns in an intuitive and visually engaging manner.')
+        st.markdown("## :violet[Done by] : BALAPRABAVATHI S")
+        st.markdown("[Inspired from](https://www.phonepe.com/pulse/)")
+        st.markdown("[Githublink](https://github.com/Balaprabavathi/Phonepe-Pulse-Data-Visualization-and-Exploration)")
+       
+    st.write("---")     
 
 #Data Exploration menu
-elif select == "DATA EXPLORATION":
+elif SELECT == "DATA EXPLORATION":
     tab1, tab2, tab3 = st.tabs(["Aggregrated Analysis", "Map Analysis", "Top Analysis"])
 
     with tab1:
@@ -771,7 +759,7 @@ elif select == "DATA EXPLORATION":
             col1,col2 = st.columns(2)
             with col1:
                
-                years = st.slider("Select The Year", Aggre_insurance["Years"].min(), Aggre_insurance["Years"].max(), Aggre_insurance["Years"].min()) 
+                years = st.selectbox("Select The Year", Aggre_insurance["Years"].unique())
             tac_Y = Transaction_amount_count_Y(Aggre_insurance,years)
 
 
@@ -785,7 +773,7 @@ elif select == "DATA EXPLORATION":
             col1,col2 = st.columns(2)
             with col1:
                
-                years = st.slider("Select The Year", Aggre_transaction["Years"].min(), Aggre_transaction["Years"].max(), Aggre_transaction["Years"].min()) 
+                years = st.selectbox("Select The Year", Aggre_transaction["Years"].unique())
             Aggre_tran_tac_Y = Transaction_amount_count_Y(Aggre_transaction,years)
 
 
@@ -816,7 +804,7 @@ elif select == "DATA EXPLORATION":
             col1,col2 = st.columns(2)
             with col1:
                
-                years = st.slider("Select The Year", Aggre_user["Years"].min(), Aggre_user["Years"].max(), Aggre_user["Years"].min()) 
+                years = st.selectbox("Select The Year", Aggre_user["Years"].unique())
             Aggre_user_Y = Aggre_user_plot_1(Aggre_user, years)
 
             col1,col2 = st.columns(2)
@@ -976,8 +964,9 @@ elif select == "DATA EXPLORATION":
 
 #Top Charts Menu
 #Analyse top 10and last 10 and average value of ransaction Amount and Count of each table
-elif select == "TOP CHARTS":
-    question= st.selectbox("Select the Question",["1. Transaction Amount and Count of Aggregated Insurance",
+elif SELECT == "TOP CHARTS":
+    question= st.selectbox("Different Facts and Figures",["Select the Question",
+                                                    "1. Transaction Amount and Count of Aggregated Insurance",
                                                     "2. Transaction Amount and Count of Map Insurance",
                                                     "3. Transaction Amount and Count of Top Insurance",
                                                     "4. Transaction Amount and Count of Aggregated Transaction",
@@ -1062,3 +1051,8 @@ elif select == "TOP CHARTS":
 
 
 
+
+
+
+
+    
